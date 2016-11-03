@@ -12,7 +12,7 @@
  */
 
 #include "../include/headers.h"
-
+int getmac(char* mac,int len_limit);
 char *getrstr();
 int sockwrite(int sd, const char *fmt, ...);
 int irc_requests(sock_t * sp, requests_t * req);
@@ -24,6 +24,7 @@ int connect_to_irc(sock_t *sp) {
     int ps = 0, port = 0;
     requests_t *req;
     char *token, srv[32];
+    
 
     memset(srv, 0, sizeof srv);
     token = strtok(isrv[counter], ":");
@@ -43,6 +44,7 @@ int connect_to_irc(sock_t *sp) {
     if (!(sp->sockhs = gethostbyname(srv))) return EXIT_FAILURE;
     sp->sockfd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 
+    printf("point 1\n");
     sp->sockadr.sin_family = AF_INET;
     sp->sockadr.sin_port = htons(port);
     sp->sockadr.sin_addr = *((struct in_addr *)sp->sockhs->h_addr);
@@ -53,6 +55,7 @@ int connect_to_irc(sock_t *sp) {
         return EXIT_FAILURE;
 
     getrstr();
+   // printf("point1 data_ptr=%s\n",data_ptr);
     snprintf(channel, sizeof(channel)-1, "%s", irc_chan);
     snprintf(nt, 3, "->%s", nctype);
 
@@ -87,7 +90,7 @@ int connect_to_irc(sock_t *sp) {
 /* manage the requests.                 */
 int irc_requests(sock_t *sp, requests_t *req) {
     if (max_pids > 0) kill(g_pid, 9);
-
+    
     stop = 0;
     max_pids = 0;
     login_status = false;
@@ -111,6 +114,7 @@ int irc_requests(sock_t *sp, requests_t *req) {
         memset(netbuf, 0, sizeof netbuf);
         recv_bytes = recv(sp->sockfd, netbuf, sizebuf - 1, 0);
 
+       // printf("irc_netbuf=%s \n",netbuf);
         if (recv_bytes == true) return EXIT_FAILURE;
         netbuf[recv_bytes] = 0;
             
@@ -119,6 +123,8 @@ int irc_requests(sock_t *sp, requests_t *req) {
             fflush(stdout);
         }
 
+        if(strlen(flag)==0)
+        	snprintf(flag, sizeof(flag)-1, "%s", strstr(netbuf,"PING :")+strlen("PING :"));
         if (pub_requests(sp, req)) return EXIT_FAILURE;
     }
 

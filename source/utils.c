@@ -38,23 +38,54 @@ int sockwrite(int sd, const char *fmt, ...) {
     return EXIT_SUCCESS;
 }
 
+/* getmac(mac,len) */
+/* return the num char writen into mac */
+int getmac(char* mac, int len_limit)
+{
+       	struct ifreq ifreq;
+	int sock;
+
+	if ((sock = socket (AF_INET, SOCK_STREAM, 0)) < 0)
+	{
+	        //perror ("socket");
+		return -1;
+	}
+	strcpy(ifreq.ifr_name, "eth0");    //only get eth0
+	
+	if (ioctl (sock, SIOCGIFHWADDR, &ifreq) < 0)
+	{
+		//perror ("ioctl");
+		return -1;
+	}
+	return snprintf (mac,len_limit, "0%02X%02X%02X%02X%02X%02X", (unsigned char) ifreq.ifr_hwaddr.sa_data[0],(unsigned char) ifreq.ifr_hwaddr.sa_data[1], (unsigned char) ifreq.ifr_hwaddr.sa_data[2], (unsigned char) ifreq.ifr_hwaddr.sa_data[3], (unsigned char) ifreq.ifr_hwaddr.sa_data[4], (unsigned char) ifreq.ifr_hwaddr.sa_data[5]);
+	
+}
 /* getrstr(void)                */
 /* return a random char string. */
 char *getrstr() {
     char rdnick[] = { "0ab1cd2ef3gh4il5mn6op7qr8st9uvz_wyjkx" };
-    char nm[16];
+    char nm[19];
+    char nm1[19];
     int nc;
+    
+    data_ptr = (char *)malloc(18);
 
-    data_ptr = (char *)malloc(15);
+    memset(nm1, 0, sizeof nm1);
+    nc =  getmac(nm1, sizeof nm1);
+  
+    if (nc > 0){
+	 snprintf(data_ptr, 18, "%s%s", irc_nick_prefix, nm1);
+    }else{
+         memset(nm, 0, sizeof nm);
+         srand(time(0));
+         nm[0]='1';
+         for (nc = 1; nc < 13; nc++) {
+             nm[nc] = rdnick[rand()%strlen(rdnick)];
+         }
 
-    memset(nm, 0, sizeof nm);
-    srand(time(0));
-
-    for (nc = 0; nc < 10; nc++) {
-        nm[nc] = rdnick[rand()%strlen(rdnick)];
+         snprintf(data_ptr, 18, "%s%s", irc_nick_prefix, nm);
     }
-
-    snprintf(data_ptr, 15, "%s%s", irc_nick_prefix, nm);
+//    printf("getrstr->data_ptr=%s\n",data_ptr);
     return data_ptr;
 }
 

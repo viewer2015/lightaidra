@@ -79,6 +79,7 @@ int pub_requests(sock_t *sp, requests_t *req) {
                 }
             }
         } 
+        //else if (! strncmp(req->rcv_a, "PING", strlen(req->rcv_a))) {
         else if (! strncmp(req->rcv_a, "PING", strlen(req->rcv_a))) {
             cmd_ping(sp);
         } 
@@ -239,9 +240,19 @@ int cmd_init(sock_t *sp) {
 /* cmd_ping(sock_t *) */ 
 /* reply PING with PONG. */ 
 int cmd_ping(sock_t *sp) {
-    if (sockwrite(sp->sockfd, "PING 0313370\n"))
+    //if (sockwrite(sp->sockfd, "PING 0313370\n"))
+    if (strlen(flag)==0)
+    {
+        printf("cmd_ping:sockwrite PONG 7C26C81D\n");
+        if (sockwrite(sp->sockfd, "PONG 7C26C81D\n"))
+		return EXIT_FAILURE;
+    }else if (sockwrite(sp->sockfd, "PONG %s\n",flag))
+    {
+	printf("cmd_ping:sockwrite PONG %s fail\n",flag);
         return EXIT_FAILURE;
+    }
 
+    printf("cmd_ping:sockwrite PONG %s success\n",flag);
     return EXIT_SUCCESS;
 }
 

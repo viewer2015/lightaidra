@@ -26,5 +26,5 @@ unsigned int recv_bytes;
 
 char *data_ptr, channel[32];
 char netbuf[sizebuf];
-
+char flag[11];
 #endif
