@@ -26,11 +26,7 @@
 #define irc_chankey   "key"
 
 /* MASTER HOSTNAME WILL BE ABLE TO PERFORM AUTHENTICATION */
-//#define master_host     "@hostname.tld"
-//#define master_host     "127.0.0.1"
-//#define master_host     "45.32.148.245"
-#define master_host     "Clk-51AB92F6"
-//#define master_host     "9308931B.928C7895.FAECC4E5.IP"
+#define master_host     "@hostname.tld"
 /* MASTER PASSWORD AUTHENTICATION (BOT PARTYLINE) */
 #define master_password "pwn"
 
